@@ -1,0 +1,58 @@
+#########################
+# PASTAS GERADAS PELA UNITY (NÃO VERSIONAR)
+#########################
+
+[Ll]ibrary/
+[Tt]emp/
+[Ll]ogs/
+[Uu]serSettings/
+[Mm]emoryCaptures/
+
+#########################
+# ARQUIVOS DE SISTEMA
+#########################
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+#########################
+# ARQUIVOS DE IDE / EDITOR
+#########################
+
+# VSCode (comente se quiser compartilhar configs com o time)
+.vscode/
+
+# Arquivos de solução/projeto gerados
+*.sln
+*.slnx
+*.csproj
+*.unityproj
+*.pidb
+*.user
+*.userprefs
+*.suo
+*.tmp
+*.booproj
+*.svd
+*.pdb
+*.mdb
+
+#########################
+# OUTROS
+#########################
+
+# Builds exportadas
+[Bb]uild/
+[Bb]uilds/
+[Ee]xportedObj/
+
+# Logs em geral
+*.log
+
+# Arquivos de backup
+*.bak
+*.old
