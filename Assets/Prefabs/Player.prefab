@@ -233,7 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shooter
   projectilePrefab: {fileID: 8408981091485864478, guid: 292f336036d1ff749905276b979de458, type: 3}
-  projectileSpeed: 10
+  projectileSpeed: 15
   projectileLifetime: 5
   fireRate: 0.2
+  projectileSpawnOffset: 0.5
   isFiring: 0

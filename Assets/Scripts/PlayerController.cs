@@ -62,6 +62,19 @@ public class PlayerController : MonoBehaviour
         // Movimento com Rigidbody2D
         //rb2d.AddForce (newPos);
         rb2d.MovePosition(newPos);
+
+        RotateTowardsMovement();
+    }
+
+    void RotateTowardsMovement()
+    {
+        if (moveVector.sqrMagnitude <= Mathf.Epsilon)
+        {
+            return;
+        }
+
+        float angle = Mathf.Atan2(moveVector.y, moveVector.x) * Mathf.Rad2Deg - 90f;
+        rb2d.MoveRotation(angle);
     }
 
     void ClampPositionToBounds()
