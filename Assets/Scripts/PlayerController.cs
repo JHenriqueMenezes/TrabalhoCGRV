@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
     private Rigidbody2D rb2d;
+    Shooter playerShooter;
+    InputAction fireAction;
     InputAction moveAction;
     Vector3 moveVector;
 
@@ -20,8 +22,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        playerShooter = GetComponent<Shooter>();
+
         rb2d = GetComponent<Rigidbody2D> ();
         moveAction = InputSystem.actions.FindAction("Move");
+        fireAction = InputSystem.actions.FindAction("Fire");
 
         InitBounds();
 
@@ -37,6 +42,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
+        FireShooter();
     }
 
     void MovePlayer() 
@@ -75,6 +81,11 @@ public class PlayerController : MonoBehaviour
         Camera mainCamera = Camera.main;
         minBounds = mainCamera.ViewportToWorldPoint(new Vector2(0, 0));
         maxBounds = mainCamera.ViewportToWorldPoint(new Vector2(1, 1));
+    }
+
+    void FireShooter() 
+    {
+        playerShooter.isFiring = fireAction.IsPressed();
     }
 
 }
