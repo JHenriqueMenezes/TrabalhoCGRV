@@ -6,14 +6,24 @@ public class MeteorSpawner : MonoBehaviour
     [SerializeField] private GameObject[] meteorPrefabs;
     [SerializeField] private float minSpawnDelay = 1.5f;
     [SerializeField] private float maxSpawnDelay = 3f;
-    [SerializeField] private float verticalSpawnOffset = 1f;
+    [SerializeField] private float minSpawnYOffset = 2f;
+    [SerializeField] private float maxSpawnYOffset = 6f;
+    [SerializeField] private float spawnRadius = 1f;
+    [SerializeField] private int maxSpawnAttempts = 10;
+    [SerializeField] private float minPlayerSpeed = 0.1f;
 
     private Camera mainCamera;
     private Coroutine spawnRoutine;
+    private Rigidbody2D playerRigidbody;
 
     private void Awake()
     {
         mainCamera = Camera.main;
+        PlayerController player = FindFirstObjectByType<PlayerController>();
+        if (player != null)
+        {
+            playerRigidbody = player.GetComponent<Rigidbody2D>();
+        }
     }
 
     private void OnEnable()
@@ -35,7 +45,11 @@ public class MeteorSpawner : MonoBehaviour
         {
             float waitTime = GetRandomDelay();
             yield return new WaitForSeconds(waitTime);
-            SpawnMeteor();
+
+            if (playerRigidbody != null && playerRigidbody.linearVelocity.magnitude > minPlayerSpeed)
+            {
+                SpawnMeteor();
+            }
         }
     }
 
@@ -60,8 +74,23 @@ public class MeteorSpawner : MonoBehaviour
         }
 
         GameObject prefab = meteorPrefabs[Random.Range(0, meteorPrefabs.Length)];
-        Vector3 spawnPosition = GetSpawnPosition();
-        Instantiate(prefab, spawnPosition, Quaternion.identity);
+        Vector3 spawnPosition = Vector3.zero;
+        bool validPositionFound = false;
+
+        for (int i = 0; i < maxSpawnAttempts; i++)
+        {
+            spawnPosition = GetSpawnPosition();
+            if (!Physics2D.OverlapCircle(spawnPosition, spawnRadius))
+            {
+                validPositionFound = true;
+                break;
+            }
+        }
+
+        if (validPositionFound)
+        {
+            Instantiate(prefab, spawnPosition, Quaternion.identity);
+        }
     }
 
     private Vector3 GetSpawnPosition()
@@ -72,8 +101,12 @@ public class MeteorSpawner : MonoBehaviour
         }
 
         float horizontalExtent = mainCamera.orthographicSize * mainCamera.aspect;
-        float x = Random.Range(-horizontalExtent, horizontalExtent);
-        float y = mainCamera.transform.position.y + mainCamera.orthographicSize + verticalSpawnOffset;
+        float minX = mainCamera.transform.position.x - horizontalExtent;
+        float maxX = mainCamera.transform.position.x + horizontalExtent;
+        float x = Random.Range(minX, maxX);
+        float randomYOffset = Random.Range(minSpawnYOffset, maxSpawnYOffset);
+        float y = mainCamera.transform.position.y + mainCamera.orthographicSize + randomYOffset;
+        
         return new Vector3(x, y, 0f);
     }
 }

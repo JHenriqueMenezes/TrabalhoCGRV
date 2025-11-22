@@ -64,7 +64,7 @@ public class EnemySpawner : MonoBehaviour
 
         Vector3 position = GetSpawnPosition();
         GameObject prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-        Instantiate(prefab, position, Quaternion.identity);
+        Instantiate(prefab, position, Quaternion.Euler(0, 0, 180));
     }
 
     private Vector3 GetSpawnPosition()

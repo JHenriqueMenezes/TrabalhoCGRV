@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 3853819796990250300}
   - component: {fileID: 4725419903418131956}
   - component: {fileID: 5511230696195581568}
+  - component: {fileID: -136725031097422154}
   m_Layer: 6
   m_Name: Player Projectile
   m_TagString: Untagged
@@ -202,3 +203,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageDealer
   damage: 100
+--- !u!114 &-136725031097422154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8408981091485864478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8cef80925e754c468d44000d850b99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  lifetime: 5

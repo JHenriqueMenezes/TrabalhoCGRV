@@ -104,9 +104,10 @@ GameObject:
   - component: {fileID: 6412572712477103498}
   - component: {fileID: 7296001347935269786}
   - component: {fileID: 1187085852100197344}
+  - component: {fileID: -8043732117471757000}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,7 +136,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4953909979706721187}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -206,7 +207,11 @@ MonoBehaviour:
   rightBoundPadding: 0
   upBoundPadding: 0
   downBoundPadding: 0
-  speed: 0
+  acceleration: 30
+  maxSpeed: 20
+  linearDrag: 2
+  brakingDrag: 6
+  rotationSpeed: 300
 --- !u!114 &7296001347935269786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +224,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b773e62a8af19cf49884f875c91db0d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+  isPlayer: 1
+  scoreValue: 1
   health: 50
+  hitParticles: {fileID: 8531986550269485632, guid: f9042935bd8a76641bdd578c0d56d01a, type: 3}
+  applyCameraShake: 1
 --- !u!114 &1187085852100197344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,4 +246,19 @@ MonoBehaviour:
   projectileLifetime: 5
   fireRate: 0.2
   projectileSpawnOffset: 0.5
+  isIa: 0
   isFiring: 0
+--- !u!114 &-8043732117471757000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4953909979706721187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb5000a0f480384fac42825212abffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+  prefab: {fileID: 8408981091485864478, guid: 292f336036d1ff749905276b979de458, type: 3}
+  poolSize: 30

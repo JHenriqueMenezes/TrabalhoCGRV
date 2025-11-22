@@ -9,91 +9,88 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float upBoundPadding;
     [SerializeField] float downBoundPadding;
 
-    public float speed;
+    [Header("Movement Settings")]
+    [SerializeField] float acceleration = 10f;
+    [SerializeField] float maxSpeed = 10f;
+    [SerializeField] float linearDrag = 2f;
+    [SerializeField] float brakingDrag = 6f;
+    [SerializeField] float rotationSpeed = 300f;
+
     private Rigidbody2D rb2d;
     Shooter playerShooter;
     InputAction fireAction;
     InputAction moveAction;
     Vector3 moveVector;
 
-    // Controle para o player não sair da janela de visualização
     Vector2 minBounds;
     Vector2 maxBounds;
+    
+    Camera mainCamera;
 
     void Start()
     {
         playerShooter = GetComponent<Shooter>();
 
         rb2d = GetComponent<Rigidbody2D> ();
+        rb2d.gravityScale = 0f;
+        rb2d.linearDamping = linearDrag; 
+
         moveAction = InputSystem.actions.FindAction("Move");
         fireAction = InputSystem.actions.FindAction("Fire");
 
-        InitBounds();
+        mainCamera = Camera.main;
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         //MovePlayer();
         moveVector = moveAction.ReadValue<Vector2>();
+        FireShooter();
     }
 
     void FixedUpdate()
     {
         MovePlayer();
-        FireShooter();
     }
 
     void MovePlayer() 
     {
-        //moveVector = moveAction.ReadValue<Vector2>();
-
-        // Movimento sem Rigidbody2D
-        //Vector3 newPos = transform.position + moveVector * speed * Time.deltaTime;
-        //newPos.x = Mathf.Clamp(newPos.x, minBounds.x, maxBounds.x);
-        //newPos.y = Mathf.Clamp(newPos.y, minBounds.y, maxBounds.y);
-        //transform.position = newPos;
-        
-        Vector3 newPos = new Vector3(rb2d.position.x, rb2d.position.y, 0) + moveVector * speed * Time.fixedDeltaTime;
-        newPos.x = Mathf.Clamp(newPos.x, minBounds.x + leftBoundPadding, maxBounds.x - rightBoundPadding);
-        newPos.y = Mathf.Clamp(newPos.y, minBounds.y + downBoundPadding, maxBounds.y - upBoundPadding);
-
-        // Movimento com Rigidbody2D
-        //rb2d.AddForce (newPos);
-        rb2d.MovePosition(newPos);
-
-        RotateTowardsMovement();
-    }
-
-    void RotateTowardsMovement()
-    {
-        if (moveVector.sqrMagnitude <= Mathf.Epsilon)
-        {
-            return;
-        }
-
-        float angle = Mathf.Atan2(moveVector.y, moveVector.x) * Mathf.Rad2Deg - 90f;
-        rb2d.MoveRotation(angle);
-    }
-
-    void ClampPositionToBounds()
-    {
-        // pega posição atual do rigidbody
-        Vector2 pos = rb2d.position;
-
-        pos.x = Mathf.Clamp(pos.x, minBounds.x, maxBounds.x);
-        pos.y = Mathf.Clamp(pos.y, minBounds.y, maxBounds.y);
-
-        // MovePosition é o jeito "correto" pra mexer em Dynamic Rigidbody2D
-        rb2d.MovePosition(pos);
-    }
-
-    void InitBounds() 
-    {
-        Camera mainCamera = Camera.main;
         minBounds = mainCamera.ViewportToWorldPoint(new Vector2(0, 0));
         maxBounds = mainCamera.ViewportToWorldPoint(new Vector2(1, 1));
+
+        if (moveVector.x != 0)
+        {
+            float rotationAmount = -moveVector.x * rotationSpeed * Time.fixedDeltaTime;
+            rb2d.MoveRotation(rb2d.rotation + rotationAmount);
+        }
+
+        float thrust = Mathf.Max(0, moveVector.y); 
+        
+        if (thrust > 0)
+        {
+            rb2d.linearDamping = linearDrag; 
+            rb2d.AddForce(transform.up * thrust * acceleration);
+        }
+        else if (moveVector.y < 0) 
+        {
+            rb2d.linearDamping = brakingDrag;
+        }
+        else
+        {
+            rb2d.linearDamping = linearDrag; 
+        }
+
+        if (rb2d.linearVelocity.magnitude > maxSpeed)
+        {
+            rb2d.linearVelocity = rb2d.linearVelocity.normalized * maxSpeed;
+        }
+
+        Vector2 pos = rb2d.position;
+        pos.x = Mathf.Clamp(pos.x, minBounds.x + leftBoundPadding, maxBounds.x - rightBoundPadding);
+        pos.y = Mathf.Clamp(pos.y, minBounds.y + downBoundPadding, 1000);
+
+        rb2d.position = pos;
     }
 
     void FireShooter() 
