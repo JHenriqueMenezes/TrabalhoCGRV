@@ -26,8 +26,8 @@ Para vencer, o jogador deve cumprir três condições simultaneamente:
 ### 🎮 Controles
 | Ação | Tecla |
 | :--- | :--- |
-| **Movimentação** | Setas Direcionais (⬆️⬇️⬅️➡️) |
-| **Atirar** | Barra de Espaço (Space) |
+| **Movimentação** | WASD |
+| **Atirar** | Botão esquerdo do mouse |
 
 ---
 
@@ -66,7 +66,7 @@ Para vencer, o jogador deve cumprir três condições simultaneamente:
 - [✅] **Menu de Pause:** Criar interface e lógica para pausar o jogo.
 - [❌] **HUD In-Game:** Melhorar a visualização de vida, tempo e score durante a partida.
 - [✅] **Power-ups:** Coletável que aumenta o tempo restante (com limite de spawn).
-- [✅] **IA Inimiga:** Ajustar naves inimigas para atirarem contra o jogador.
+- [✅] **"IA" Inimiga:** Ajustar naves inimigas para atirarem contra o jogador.
 
 ---
 
@@ -81,6 +81,6 @@ Recursos de terceiros utilizados no projeto:
 ---
 
 ## 🔗 Links
-- **Build do Jogo:** [Inserir Link Aqui]
+- **Build do Jogo:** [https://drive.google.com/file/d/1fpR2ptdRf1Pz3-3CoWUNwVXEEUAcQtny/view?usp=drive_link]
 - **Vídeo de Gameplay:** [Inserir Link Aqui]
 - **Documentação do Trabalho:** [Trabalho_Pratico_CG_2025.pdf](Trabalho_Pratico_CG_2025.pdf)
