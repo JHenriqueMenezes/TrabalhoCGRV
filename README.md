@@ -81,6 +81,6 @@ Recursos de terceiros utilizados no projeto:
 ---
 
 ## 🔗 Links
-- **Build do Jogo:** [https://drive.google.com/file/d/1fpR2ptdRf1Pz3-3CoWUNwVXEEUAcQtny/view?usp=drive_link]
-- **Vídeo de Gameplay:** [Inserir Link Aqui]
+- **Build do Jogo:** [Pasta compactada do jog no drive](https://drive.google.com/file/d/1fpR2ptdRf1Pz3-3CoWUNwVXEEUAcQtny/view?usp=drive_link)
+- **Vídeo de Gameplay:** [Video demo do Space Shooter](https://www.youtube.com/)
 - **Documentação do Trabalho:** [Trabalho_Pratico_CG_2025.pdf](Trabalho_Pratico_CG_2025.pdf)
