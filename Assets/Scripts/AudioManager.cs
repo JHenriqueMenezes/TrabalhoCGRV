@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Damage SFX")]
     [SerializeField] AudioClip damageClip;
+    
     [SerializeField] [Range(0, 1)] float damageVolume = 1f;
 
     [Header("UI SFX")]
