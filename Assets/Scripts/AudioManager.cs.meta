@@ -1,2 +1,36 @@
-fileFormatVersion: 2
-guid: 413a56a9f28662642ae263eace325a05
+using UnityEngine;
+
+public class AudioManager : MonoBehaviour
+{
+    [Header("Shooting SFX")]
+    [SerializeField] AudioClip shootingClip;
+    [SerializeField] [Range(0, 1)] float shootingVolume = 1f;
+
+    [Header("Damage SFX")]
+    [SerializeField] AudioClip damageClip;
+    [SerializeField] [Range(0, 1)] float damageVolume = 1f;
+
+    public void PlayShootingSFX() 
+    {
+        if (shootingClip != null)
+        {
+            PlayAudioClio(shootingClip, shootingVolume);
+        }
+    }
+
+    public void PlayDamageSFX() 
+    {
+        if (damageClip != null)
+        {
+            PlayAudioClio(damageClip, damageVolume);
+        }
+    }
+
+    public void PlayAudioClio(AudioClip clip, float volume)
+    {
+        if (clip != null)
+        {
+            AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, volume);
+        }
+    }
+}
