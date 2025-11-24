@@ -7,19 +7,20 @@ public class CameraShake : MonoBehaviour
     [SerializeField] float shakeMagnitude = 0.5f;
 
     Vector3 initialPosition;
-
-    void Start()
-    {
-        initialPosition = transform.position;
-    }
+    bool isShaking = false;
 
     public void Play()
     {
-        StartCoroutine(ShakeCamera());
+        if (!isShaking)
+        {
+            initialPosition = transform.position;
+            StartCoroutine(ShakeCamera());
+        }
     }
 
     IEnumerator ShakeCamera()
     {
+        isShaking = true;
         float timeElapsed = 0;
         while (timeElapsed < shakeDuration)
         {
@@ -28,5 +29,6 @@ public class CameraShake : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }  
         transform.position = initialPosition;
+        isShaking = false;
     }
 }
